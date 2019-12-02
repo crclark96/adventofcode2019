@@ -1,8 +1,8 @@
 fuel :: Int -> Int
-fuel mass = if fuelmass <= 0
-              then 0
-              else fuelmass + (fuel fuelmass)
-                where fuelmass = mass `div` 3 - 2
+fuel mass
+  | fuelmass <= 0 = 0
+  | otherwise = fuelmass + (fuel fuelmass)
+      where fuelmass = mass `div` 3 - 2
 
 
 main = do
