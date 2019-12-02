@@ -7,7 +7,4 @@ fuel mass
 
 main = do
   contents <- getContents
-  let masses = filter (\x -> length x > 0) $ lines contents
-      fuels = map (fuel . read :: String -> Int) masses
-      total = sum fuels
-  print total
+  print $ sum [fuel $ read x :: Int | x <- lines contents, length x > 0]
