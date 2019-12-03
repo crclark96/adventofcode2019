@@ -22,7 +22,7 @@ markGrid :: Coords -> Grid -> Grid
 markGrid c (Grid r l g) = Grid { recent = c, grid = M.insert c (l+1) g, len = l+1 }
 
 closestIntersectionDistance :: Grid -> Grid -> Int
-closestIntersectionDistance (Grid r0 l0 g0) (Grid r1 l1 g1) = minimum . map snd . M.toList $ M.intersectionWith (+) g0 g1
+closestIntersectionDistance (Grid r0 l0 g0) (Grid r1 l1 g1) = minimum $ M.intersectionWith (+) g0 g1
 
 buildGrid :: String -> Grid
 buildGrid "" = startGrid
