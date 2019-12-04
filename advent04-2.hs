@@ -9,4 +9,4 @@ match i = len && inc && adj
         pairs = zip str $ tail str
 
 main = do
-  print $ length . filter (\x -> x) $ map match [272091..815432]
+  print . length $ filter match [272091..815432]
