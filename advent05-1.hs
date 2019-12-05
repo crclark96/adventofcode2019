@@ -15,8 +15,8 @@ runop i (State mem input output)
                                         output = (val1:output) }
   | otherwise = error "invalid opcode"
     where opcode = mem ! i `mod` 100
-          mode1  = opcode `mod` 1000 `div` 100
-          mode2  = opcode `mod` 10000 `div` 1000
+          mode1  = mem ! i `mod` 1000  `div` 100
+          mode2  = mem ! i `mod` 10000 `div` 1000
           src1   = mem ! (i+1)
           src2   = mem ! (i+2)
           dst    = mem ! (i+3)
