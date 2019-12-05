@@ -26,5 +26,5 @@ runop i (State mem input output)
 main = do
   contents <- getContents
   let input = M.fromList $ zip [0..] $ Prelude.map (read :: String -> Int) $ words [if x == ',' then ' ' else x | x <- contents]
-      state = State { mem = input, output = [], input = [3] }
+      state = State { mem = input, output = [], input = [1] }
   print $ output (runop 0 state)
