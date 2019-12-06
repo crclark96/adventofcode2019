@@ -7,12 +7,12 @@ addObject orbit m = M.insert satellite body m
         satellite = objects !! 1
         objects   = words [if x == ')' then ' ' else x | x <- orbit]
 
-numOrbits :: String -> M.Map String String -> Int
+numOrbits :: (Ord a) => a -> M.Map a a -> Int
 numOrbits object m = case M.lookup object m of
   Nothing -> 0
   Just x  -> numOrbits' 1 x m
 
-numOrbits' :: Int -> String -> M.Map String String -> Int
+numOrbits' :: (Ord a) => Int -> a -> M.Map a a -> Int
 numOrbits' n object m = case M.lookup object m of
   Nothing -> n
   Just x  -> numOrbits' (n+1) x m

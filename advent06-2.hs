@@ -8,8 +8,8 @@ addObject orbit m = M.insert satellite body m
         satellite = objects !! 1
         objects   = words [if x == ')' then ' ' else x | x <- orbit]
 
-getOrbits :: String -> M.Map String String -> S.Set String
-getOrbits obj m = case M lookup obj m of
+getOrbits :: (Ord a) => a -> M.Map a a -> S.Set a
+getOrbits obj m = case M.lookup obj m of
   Nothing -> S.empty
   Just body -> S.insert body $ getOrbits body m
 
