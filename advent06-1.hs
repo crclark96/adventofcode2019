@@ -8,16 +8,14 @@ addObject orbit m = M.insert satellite body m
         objects   = words [if x == ')' then ' ' else x | x <- orbit]
 
 numOrbits :: String -> M.Map String String -> Int
-numOrbits object m
-  | body == Nothing = 0
-  | otherwise = numOrbits' 1 (fromJust body) m
-      where body = M.lookup object m
+numOrbits object m = case M.lookup object m of
+  Nothing -> 0
+  Just x  -> numOrbits' 1 x m
 
 numOrbits' :: Int -> String -> M.Map String String -> Int
-numOrbits' n object m
-  | body == Nothing = n
-  | otherwise = numOrbits' (n+1) (fromJust body) m
-      where body = M.lookup object m
+numOrbits' n object m = case M.lookup object m of
+  Nothing -> n
+  Just x  -> numOrbits' (n+1) x m
 
 main = do
   input <- readFile "input/input06"
