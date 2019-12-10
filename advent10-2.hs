@@ -28,7 +28,6 @@ numVisible c g = S.size . S.map (\x -> angle c x) $ S.delete c g
 visible :: Coords -> Grid -> Grid
 visible c g = S.fromList $ M.elems m
   where m  = M.fromListWith (\c1 c2 -> if dist c1 c < dist c2 c then c1 else c2) $ S.elems $ S.map (\x -> (angle c x,x)) $ S.delete c g
-        -- map (angle:coords)
 
 dist :: Coords -> Coords -> Float
 dist (x1,y1) (x2,y2) = abs $ sqrt (x^2 + y^2)
@@ -42,13 +41,8 @@ main = do
       station = fst $ foldr1 (\x acc -> if snd x > snd acc then x else acc) $ S.map (\x -> (x, numVisible x g)) g
       v = visible station g
       angles  = S.map (\x -> (angle station x,x)) v
-      q1 = S.filter (\(a,c) -> 0<a && a<=(pi/2)) angles
-      q2 = S.filter (\(a,c) -> (pi/2)<a && a<=pi) angles
-      q3 = S.filter (\(a,c) -> pi<a && a<=(3/2)*pi) angles
-      q4 = S.filter (\(a,c) -> (3/2)*pi<a || a==0) angles
-      n  = 200 - S.size q1 - S.size q4 - S.size q3 - 1
-  print $ S.size q1
-  print $ S.size q2
-  print $ S.size q3
-  print $ S.size q4
-  print $ (S.toDescList q2) !! n
+      q1 = S.toDescList $ S.filter (\(a,c) -> 0<a && a<=(pi/2)) angles
+      q2 = S.toDescList $ S.filter (\(a,c) -> (pi/2)<a && a<=pi) angles
+      q3 = S.toDescList $ S.filter (\(a,c) -> pi<a && a<=(3/2)*pi) angles
+      q4 = S.toDescList $ S.filter (\(a,c) -> (3/2)*pi<a || a==0) angles
+  print $ (q1 ++ q4 ++ q3 ++ q2) !! 199
