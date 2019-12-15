@@ -30,9 +30,13 @@ runStep i s xs
   | otherwise = runStep (i+1) s $ map updatePosition $ applyGravityAll xs
 
 main = do
-  let l = [Planet (3,3,0) (0,0,0), Planet (4,-16,2) (0,0,0),
-           Planet (-10,-6,5) (0,0,0), Planet (-3,0,-13) (0,0,0)]
-  print $ runStep 0 l l
+  let lx = [Planet (3,0,0) (0,0,0), Planet (4,0,0) (0,0,0),
+            Planet (-10,0,0) (0,0,0), Planet (-3,0,0) (0,0,0)]
+  let ly = [Planet (0,3,0) (0,0,0), Planet (0,-16,0) (0,0,0),
+            Planet (0,-6,0) (0,0,0), Planet (0,0,0) (0,0,0)]
+  let lz = [Planet (0,0,0) (0,0,0), Planet (0,0,2) (0,0,0),
+            Planet (0,0,5) (0,0,0), Planet (0,0,-13) (0,0,0)]
+  print $ lcm (runStep 0 lx lx) $ lcm (runStep 0 ly ly) (runStep 0 lz lz)
 -- input:
 -- <x=3, y=3, z=0>
 -- <x=4, y=-16, z=2>
